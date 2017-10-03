@@ -1,0 +1,130 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package buildingPart1;
+
+/**
+ *
+ * @author EmilyHickey
+ */
+public class Elevator {
+
+    /**
+     * declaring variables
+     */
+    private final int capacity = 10;
+    private final int floors = 7;
+    private int floorNumber = 0;
+    private boolean goingUp = true;
+    private boolean goingDown = false;
+    private int passengers = 0;
+    private Boolean[] floorLights = new Boolean[]{false, false, false, false, false, false, false, false};
+    private int[] passengersToFloor = new int[floors];
+
+    public Elevator() {
+        super();
+    }
+
+    /**
+     * Getters
+     */
+    public int getFloorNumber() {
+        return floorNumber;
+    }
+
+    public boolean isGoingUp() {
+        return goingUp;
+    }
+
+    public boolean isGoingDown() {
+        return goingDown;
+    }
+
+    /**
+     * Move Method
+     */
+    public void move() {
+        /**
+         * check to see if Elevator has reached the top. If it is, switch the
+         * Elevator's direction
+         */
+        if (floorNumber == floors) {
+            goingDown = true;
+            goingUp = false;
+            /**
+             * check to see if the elevator is at the bottom. If it is, switch
+             * so the Elevator moves up
+             */
+        } else if (floorNumber == 0) {
+            goingDown = false;
+            goingUp = true;
+        }
+        /**
+         * If going up, add to floorNumber and run the stop method
+         */
+        if (goingUp) {
+            floorNumber++;
+            if (floorLights[floorNumber] == true) {
+                stop();
+            }
+            /**
+             * if goingDown, subtract from floorNumber and run the stop method
+             */
+        } else if (goingDown) {
+            floorNumber--;
+            if (floorLights[floorNumber] == true) {
+                stop();
+            }
+
+        }
+    }
+
+    public void stop() {
+        /**
+         * check the elevator's lights to see if any passengers are departing
+         */
+        System.out.println("On floor " + (floorNumber) + ", " + passengersToFloor[floorNumber] + " got out.");
+        passengersToFloor[floorNumber] = 0;
+        floorLights[floorNumber] = false;
+        checkPass();
+    }
+
+    public void boardPassenger(int floor) {
+        passengersToFloor[floor] += 1;
+        floorLights[floor] = true;
+        checkPass();
+    }
+
+    public void checkPass() {
+        int x = 0;
+        for (int i = 0; i < passengersToFloor.length; i++) {
+            x += passengersToFloor[i];
+        }
+        passengers = x;
+    }
+
+    @Override
+    public String toString() {
+        return "Elevator: current floor: " + (floorNumber + 1) + ", number of passengers: " + passengers;
+    }
+
+    public static void main(String[] args) {
+        Elevator elevator = new Elevator();
+        System.out.println("== Beginnig of Simulation ==");
+        System.out.println(elevator);
+// load people going up
+        elevator.boardPassenger(1);
+        elevator.boardPassenger(1);
+        elevator.boardPassenger(2);
+        System.out.println("== Loaded Elevator ==");
+        System.out.println(elevator);
+        for (int i = 0; i < 20; i++) {
+            elevator.move();
+        }
+        System.out.println("== End of Simulation ==");
+        System.out.println(elevator);
+    }
+
+}
