@@ -1,0 +1,57 @@
+package Barnyard;
+
+/**
+ *
+ * @author EmilyHickey
+ */
+public class Animal {
+
+    private int food;
+    private int milesTraveled;
+    private String name;
+
+    public Animal(String name) {
+        this.name = name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getFood() {
+        return food;
+    }
+
+    public int getMilesTraveled() {
+        return milesTraveled;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Animal{" + "food=" + food + ", milesTraveled=" + milesTraveled + ", name=" + name + '}';
+    }
+
+    public void feed(int food) {
+        this.food += food;
+    }
+
+    public void move() {
+        if (this.food <= 0) {
+            System.out.println(this.getName() + " needs to be fed first!");
+        } else {
+            this.milesTraveled += 10;
+            food--;
+            System.out.println(getName() + " went for a walk. " + getName() +  " went 10 miles, meaning that they have traveled " + getMilesTraveled() + " miles.");
+        }
+    }
+    
+     public void hayIsFor(){
+        if (name == "Nolan"){
+            System.out.println("Hay is for Horses, better for Cows. Pigs can't eat it 'cause they don't know how.");
+        }
+    }
+}
