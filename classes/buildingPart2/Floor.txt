@@ -1,0 +1,92 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package buildingPart2;
+
+import java.util.ArrayList;
+
+/**
+ *
+ * @author EmilyHickey
+ */
+public class Floor {
+
+    private final int floorNumber;
+    private int peopleWaiting;
+    private int peopleOnFloor;
+    private ArrayList<Person> peopleChilling = new ArrayList();
+    private ArrayList<Person> peopleGoingUp = new ArrayList();
+    private ArrayList<Person> peopleGoingDown = new ArrayList();
+
+    public Floor(int floorNumber) {
+        this.floorNumber = floorNumber;
+        peopleWaiting = peopleGoingUp.size() + peopleGoingDown.size();
+        peopleOnFloor = peopleGoingUp.size() + peopleGoingDown.size() + peopleChilling.size();
+    }
+
+    public int getPeopleOnFloor() {
+        return peopleOnFloor;
+    }
+
+    public int getPeopleWaiting() {
+        return peopleWaiting;
+    }
+
+    public void setPeopleWaiting(int peopleWaiting) {
+        this.peopleWaiting = peopleWaiting;
+        peopleOnFloor = peopleWaiting;
+    }
+
+    public void setPeopleOnFloor(int peopleOnFloor) {
+        this.peopleOnFloor = peopleOnFloor;
+    }
+    
+    public void addWaitingToGoUp(Person stewbert){
+        
+    }
+    
+    public void addWaitingToGoDown(Person rocky){
+        
+    }
+
+    public void movePassengers(Elevator elevater) {
+        ArrayList<Person> tempPeep = new ArrayList();
+        tempPeep = elevater.unloadPassengers(floorNumber);
+        for (int h = 0; h < tempPeep.size(); h++){
+            peopleChilling.add(tempPeep.get(h));
+        }
+        
+        
+        int x = peopleWaiting;
+        if (elevater.isGoingDown()) {
+            for (int i = 0; i < x; i++) {
+                try {
+                    elevater.boardPassenger(peopleGoingDown.get(i));
+                    peopleGoingDown.remove(i);
+                    System.out.println("Passenger boarded at " + floorNumber);
+                    peopleWaiting--;
+                    peopleOnFloor--;
+                } catch (ElevatorFullException e) {
+                    elevater.registerRequest(floorNumber + 1);
+                    return;
+                }
+            }
+            if (elevater.isGoingUp()) {
+                for (int i = 0; i < x; i++) {
+                    try {
+                        elevater.boardPassenger(peopleGoingUp.get(i));
+                        peopleGoingUp.remove(i);
+                        System.out.println("Passenger boarded at " + floorNumber);
+                        peopleWaiting--;
+                        peopleOnFloor--;
+                    } catch (ElevatorFullException e) {
+                        elevater.registerRequest(floorNumber + 1);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+}
