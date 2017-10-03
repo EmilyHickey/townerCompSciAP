@@ -1,0 +1,22 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package chapter2;
+
+/**
+ *
+ * @author EmilyHickey
+ */
+public class ThatsMyName {
+    public static void main(String[] args){
+        String name = GUIIO.getString("Please enter your first name and last name, separated by a space.");
+        String firstName = name.substring(0, name.indexOf(" "));
+        String lastName = name.substring((name.indexOf(" ") + 1));
+        String initials = name.substring(0, 1) + name.substring(name.indexOf(" ") + 1, name.indexOf(" ") + 2);
+        GUIIO.displayMessage("You first name is " + firstName + ", which has " + firstName.length() + " characters");
+        GUIIO.displayMessage("You last name is " + lastName + ", which has " + lastName.length() + " characters");
+        GUIIO.displayMessage("You first initials are " + initials);
+    }
+}
