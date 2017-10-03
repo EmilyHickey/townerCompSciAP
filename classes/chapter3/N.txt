@@ -1,0 +1,33 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package chapter3;
+
+/**
+ *
+ * @author EmilyHickey
+ */
+public class N {
+
+    public static void main(String[] args) {
+        String name;
+        int i;
+        boolean startWord;
+
+        name = "Richard M. Nixon";
+        startWord = true;
+        for (i = 0; i < name.length(); i++) {
+            if (startWord) {
+                System.out.println(name.charAt(i));
+            }
+            if (name.charAt(i) == ' ') {
+                startWord = true;
+            } else {
+                startWord = false;
+            }
+
+        }
+    }
+}
