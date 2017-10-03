@@ -1,0 +1,26 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package chapter2;
+
+/**
+ *
+ * @author EmilyHickey
+ */
+public class Eggs {
+
+    public static void main(String[] args) {
+        int totalEgg = GUIIO.getInt("How many eggs could you possibly have?");
+        if (totalEgg > 9000) {
+            GUIIO.displayMessage("That's a lot of eggs");
+        }
+        int grossEggs = (int)totalEgg/144;
+        int lGEggs = totalEgg%144;
+        int dozenEggs = (int)lGEggs/12;
+        int eggs = lGEggs%12;
+        
+        GUIIO.displayMessage("You have " + grossEggs +" grosses, " + dozenEggs + " dozens, and " + eggs+ " eggs");
+    }
+}
