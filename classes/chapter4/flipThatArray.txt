@@ -1,0 +1,57 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package chapter4;
+import textIO.TextIO;
+import textIO.System;
+
+/**
+ *
+ * @author EmilyHickey
+ */
+public class flipThatArray {
+    public static void main(String[] args){
+        int[][] matrix1 = new int[3][3];
+        int[][] matrix2;
+        matrix1[0][0] = 7;
+        matrix1[0][1] = 5;
+        matrix1[0][2] = 4;
+        matrix1[1][0] = 12;
+        matrix1[1][1] = 145;
+        matrix1[1][2] = 345;
+        matrix1[2][0] = 22;
+        matrix1[2][1] = 41;
+        matrix1[2][2] = 57;
+        printMatrix(matrix1);
+        matrix2 = flipMatrix(matrix1);
+        printMatrix(matrix2);
+    }
+    
+    public static void printMatrix(int[][] matrix){
+        for(int i = 0; i < matrix.length; i++){
+            for(int g = 0; g < matrix[i].length; g++){
+                System.out.print(matrix[i][g] + " ");
+            }
+            System.out.print("\n");
+        }
+        System.out.println("=====");
+    }
+    
+    public static int[][] flipMatrix(int[][] original){
+        int[][] temp = new int[original.length][original[0].length];
+        int column = 0;
+        int row = 0;
+        for(int i = original.length ; i > 0; i--){
+            row = 0;
+            for(int g = original[i - 1].length; g > 0; g--){
+                temp[column][row] = original[i - 1][g - 1];
+                row++;
+            }
+            column++;
+        }
+        
+        return temp;
+    }
+}
