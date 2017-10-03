@@ -1,0 +1,15 @@
+package buildingPart2;
+    @SuppressWarnings("serial")
+    public class ElevatorFullException extends Exception {
+    
+    private String msg;
+    
+    public ElevatorFullException(String msg) {
+      super(msg);
+      this.msg = msg;
+    }
+     @Override
+     public String toString() {
+         return (msg);
+      }
+  }
