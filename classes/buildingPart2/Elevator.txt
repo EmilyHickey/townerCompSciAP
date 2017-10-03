@@ -1,0 +1,160 @@
+ /*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package buildingPart2;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+/**
+ *
+ * @author EmilyHickey
+ */
+public class Elevator {
+
+    /**
+     * declaring variables
+     */
+    private final int capacity;
+    private final int max_floors;
+    private int currentFloor = 1;
+    private boolean goingUp = true;
+    private boolean goingDown = false;
+    private ArrayList<Person> passengers = new ArrayList();
+    private int currentPassengers;
+    private Boolean[] destinationRequests;
+    private ArrayList<ArrayList<Person>> passengerRequests;
+    private Floor[] floors;
+
+    public Elevator(int capacity, int maxFloors, Floor[] floors) {
+        this.capacity = capacity;
+        this.max_floors = maxFloors;
+        this.floors = floors;
+        passengerRequests = new ArrayList<ArrayList<Person>>(max_floors);
+        destinationRequests =  new Boolean[max_floors];
+        Arrays.fill(destinationRequests, false);
+    }
+
+    /**
+     * Getters
+     */
+    public int getCurrentFloor() {
+        return currentFloor;
+    }
+
+    public int getPassengerRequests(int floorRequest) {
+        return passengerRequests.get(floorRequest).size();
+    }
+
+    public boolean isGoingUp() {
+        return goingUp;
+    }
+
+    public boolean isGoingDown() {
+        return goingDown;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public int getMax_floors() {
+        return max_floors;
+    }
+    
+    public int getCurrentPassengers(){
+        currentPassengers = passengers.size();
+        return currentPassengers;
+    }
+
+    
+    /**
+     * Move Method
+     */
+    public void move() {
+        /**
+         * check to see if Elevator has reached the top. If it is, switch the
+         * Elevator's direction
+         */
+        if (currentFloor == max_floors) {
+             if (destinationRequests[currentFloor - 1]) {
+                stop();
+            }
+            goingDown = true;
+            goingUp = false;
+            System.out.println("|| Elevator is now going Down ||");
+            /**
+             * check to see if the elevator is at the bottom. If it is, switch
+             * so the Elevator moves up Unique Story
+             */
+        } else if (currentFloor == 1) {
+             if (destinationRequests[currentFloor - 1]) {
+                stop();
+            }
+            goingDown = false;
+            goingUp = true;
+            System.out.println("|| Elevator is now going Up ||");
+        }
+        /**
+         * If going up, add to floorNumber and run the stop method
+         */
+        if (goingUp) {
+            currentFloor++;
+            if (destinationRequests[currentFloor - 1]) {
+                stop();
+            } 
+            /**
+             * if goingDown, subtract from floorNumber and run the stop method
+             */
+        } else if (goingDown) {
+            currentFloor--;
+            if (destinationRequests[currentFloor - 1]) {
+                stop();
+            }
+        }
+    }
+
+    public void stop() {
+        /**
+         * check the elevator's lights to see if any passengers are departing
+         */
+        System.out.println("Stopping on Floor: " + (currentFloor));
+        floors[currentFloor - 1].movePassengers(this);
+        System.out.println(this);
+    }
+
+    public void boardPassenger(Person henry) throws ElevatorFullException {
+        if (getCurrentPassengers() + 1 > capacity) {
+            getCurrentPassengers();
+            throw new ElevatorFullException("Elevator is at max capacity. Passenger not boarded");
+        } else {
+            passengers.add(henry);
+            getCurrentPassengers();
+            passengerRequests.get(henry.getDestinationFloor()).add(henry);
+            destinationRequests[henry.getDestinationFloor()] = true;
+        }
+    }
+
+    public ArrayList<Person> unloadPassengers(int floor){
+        ArrayList<Person> tempPeep = new ArrayList( );
+        for(int i = 0; i < passengers.size(); i++){
+            if(passengers.get(i).getDestinationFloor() == floor){
+                tempPeep.add(passengers.get(i));
+                passengers.remove(i);
+            }
+        }
+        return tempPeep;
+    }
+
+    public void registerRequest(int i) {
+        destinationRequests[i - 1] = true;
+    }
+    
+    @Override
+    public String toString() {
+        return "Elevator: current floor: " + (currentFloor) + ", number of passengers: " + getCurrentPassengers() + ", Passengers: " + passengers.toString();
+    }
+
+}
