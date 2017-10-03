@@ -1,0 +1,50 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package chapter4;
+import java.util.ArrayList;
+import textIO.TextIO;
+import textIO.System;
+/**
+ *
+ * @author EmilyHickey
+ */
+public class capitilizeMe {
+    public static void main(String[] args){
+        System.out.print("String please: ");
+        String s1 = TextIO.getln();
+        printCapitalizaed(s1);
+}
+    public static void printCapitalizaed(String string){
+        ArrayList<String> words = new ArrayList<String>();
+        ArrayList<String> wordStarts = new ArrayList<String>();
+        ArrayList<String> properWords = new ArrayList<String>();
+        String temp = string;
+        String printOut = "";
+        int i = 0;
+        while(i < temp.length()){
+            wordStarts.add(temp.substring(i, i+1));
+            if(temp.indexOf(" ") != -1){
+            words.add(temp.substring(i+1, temp.indexOf(" ")));
+            temp = temp.substring(temp.indexOf(" ") + 1, temp.length());
+            System.out.println(temp);
+            }else{
+                words.add(temp.substring(i+1));
+                temp = "";
+            }
+            if(temp.length() == 0){
+                i++;
+            }
+    }
+        for(int j = 0; j < wordStarts.size(); j++){
+            char tempChar;
+            properWords.add("" + Character.toUpperCase((tempChar = wordStarts.get(j).charAt(0))) + words.get(j) +" ");
+        }
+        for(int k = 0; k < properWords.size(); k++){
+            printOut += properWords.get(k);
+        }
+        System.out.println(printOut);
+}
+}
