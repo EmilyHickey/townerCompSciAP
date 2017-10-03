@@ -1,0 +1,59 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package buildingPart2;
+
+
+
+public class Person {
+    private int currentFloor;
+    private int destinationFloor;
+    private String name;
+    private Status status;
+    
+    
+    
+    public Person(String name, int destination, int currentFloor, Status status){
+        this.currentFloor = currentFloor;
+        this.destinationFloor =destinationFloor;
+        this.name = name;
+        this.status = status;
+    }
+
+    public int getDestinationFloor() {
+        return destinationFloor;
+    }
+
+    public void setCurrentFloor(int currentFloor) {
+        this.currentFloor = currentFloor;
+    }
+
+    public void setDestinationFloor(int destinationFloor) {
+        this.destinationFloor = destinationFloor;
+    }
+
+    public int getCurrentFloor() {
+        return currentFloor;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+    
+    
+    
+}
