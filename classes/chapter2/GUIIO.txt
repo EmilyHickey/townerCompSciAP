@@ -1,0 +1,54 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package chapter2;
+
+/**
+ *
+ * @author JohnTowner
+ */
+    import javax.swing.JOptionPane;
+
+    public class GUIIO {
+
+        public static void displayMessage(String message) {
+            JOptionPane.showMessageDialog(null, message, "Message Box", 0);
+        }
+
+        public static String getString(String message) {
+            String input;
+            input = JOptionPane.showInputDialog(message);
+            if (input == null) {
+                return "";
+            }
+            return input;
+        }
+
+        public static int getInt(String message) {
+            String input;
+            int number;
+            input = JOptionPane.showInputDialog(message);
+            try {
+                number = Integer.parseInt(input);
+            } catch (NumberFormatException nfe) {
+                System.out.println(nfe);
+                return 0;
+            }
+            return number;
+        }
+
+        public static double getDouble(String message) {
+            String input;
+            double number;
+            input = JOptionPane.showInputDialog(message);
+            try {
+                number = Double.parseDouble(input);
+            } catch (NumberFormatException nfe) {
+                System.out.println(nfe);
+                return 0;
+            }
+            return number;
+        }
+    }
